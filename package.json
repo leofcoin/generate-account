@@ -1,0 +1,21 @@
+{
+  "name": "@leofcoin/generate-account",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "c": "rollup -c",
+    "b": "browserify dist/commonjs/generate-account.js -o dist/browser/generate-account.js --standalone generateAccount",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@leofcoin/multi-wallet": "^2.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "rollup": "^2.33.3"
+  }
+}
