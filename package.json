@@ -2,7 +2,9 @@
   "name": "@leofcoin/generate-account",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/commonjs/generate-account.js",
+  "module": "./dist/module/generate-account.js",
+  "browser": "./dist/browser/generate-account.js",
   "scripts": {
     "c": "rollup -c",
     "b": "browserify dist/commonjs/generate-account.js -o dist/browser/generate-account.js --standalone generateAccount",
