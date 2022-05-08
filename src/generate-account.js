@@ -5,11 +5,14 @@ import MultiWallet from '@leofcoin/multi-wallet'
  * @return {object} { identity, accounts, config }
  */
 export default async network => {
-    const wallet = new MultiWallet(network);
+    let wallet = new MultiWallet(network);
     /**
      * @type {string}
      */
     const mnemonic = await wallet.generate();
+
+    wallet = new MultiWallet(network)
+    await wallet.recover(mnemonic, network)
     /**
      * @type {object}
      */
@@ -19,23 +22,17 @@ export default async network => {
      */
     const external = account.external(0)
     const internal = account.internal(0)
-    
+
     return {
       identity: {
         mnemonic,
-        multiWIF: wallet.export(),
+        // multiWIF: wallet.export(),
         publicKey: external.publicKey,
         privateKey: external.privateKey,
         walletId: external.id
       },
-      accounts: [['main account', external.address, internal.address]],
-      config: {
-        miner: {
-          intensity: 1,
-          address: external.address,
-          donationAddress: undefined,
-          donationAmount: 1 //percent
-        }
-       }
+      accounts: [['main account', external.address, internal.address]]
+      // config: {
+      //  }
     }
   }

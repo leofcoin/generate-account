@@ -12,17 +12,18 @@
   ],
   "scripts": {
     "c": "rollup -c",
-    "b": "browserify dist/commonjs/generate-account.js -o dist/browser/generate-account.js --standalone generateAccount",
+    "b": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leofcoin/multi-wallet": "^2.0.0"
+    "@leofcoin/multi-wallet": "^2.1.5"
   },
   "devDependencies": {
-    "browserify": "^17.0.0",
-    "rollup": "^2.33.3"
+    "rollup": "^2.33.3",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
   }
 }
