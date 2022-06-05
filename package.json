@@ -3,12 +3,10 @@
   "version": "1.0.3",
   "description": "",
   "main": "dist/commonjs/generate-account.js",
-  "module": "dist/module/generate-account.js",
-  "browser": "dist/browser/generate-account.js",
+  "module": "src/generate-account.js",
   "files": [
-    "dist/commonjs/generate-account.js",
-    "dist/module/generate-account.js",
-    "dist/browser/generate-account.js"
+    "src/generate-account.js",
+    "dist/commonjs/generate-account.js"
   ],
   "scripts": {
     "c": "rollup -c",
