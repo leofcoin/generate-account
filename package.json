@@ -1,6 +1,6 @@
 {
   "name": "@leofcoin/generate-account",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/commonjs/generate-account.js",
   "module": "src/generate-account.js",
