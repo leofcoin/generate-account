@@ -9,29 +9,26 @@ export default async network => {
     /**
      * @type {string}
      */
-    const mnemonic = await wallet.generate();
+    const mnemonic = await wallet.generate('password');
 
     wallet = new MultiWallet(network)
-    await wallet.recover(mnemonic, network)
+    await wallet.recover(mnemonic, '', network)
     /**
      * @type {object}
      */
-    const account = wallet.account(0)
+    const account = wallet.account(1)
     /**
      * @type {object}
      */
-    const external = account.external(0)
-    const internal = account.internal(0)
+    const external = account.external(1)
+    const internal = account.internal(1)
 
     return {
       identity: {
         mnemonic,
-        // multiWIF: wallet.export(),
-        publicKey: external.publicKey,
-        privateKey: external.privateKey,
         walletId: external.id
       },
-      accounts: [['main account', external.address, internal.address]]
+      accounts: [['main account', await external.address, await internal.address]]
       // config: {
       //  }
     }

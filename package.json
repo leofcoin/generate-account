@@ -2,26 +2,21 @@
   "name": "@leofcoin/generate-account",
   "version": "1.0.4",
   "description": "",
-  "main": "dist/commonjs/generate-account.js",
-  "module": "src/generate-account.js",
+  "main": "src/generate-account.js",
+  "type": "module",
   "files": [
-    "src/generate-account.js",
-    "dist/commonjs/generate-account.js"
+    "src/generate-account.js"
   ],
   "scripts": {
-    "c": "rollup -c",
-    "b": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "set-flags": "set NODE_OPTIONS=--openssl-legacy-provider",
+    "test": "npm run set-flags && node test.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leofcoin/multi-wallet": "^2.1.5"
-  },
-  "devDependencies": {
-    "rollup": "^2.33.3",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2"
+    "@leofcoin/mnemonic": "^1.0.2",
+    "@leofcoin/multi-wallet": "^2.1.10",
+    "@leofcoin/utils": "^1.1.4"
   }
 }
