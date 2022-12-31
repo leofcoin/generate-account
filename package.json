@@ -2,11 +2,10 @@
   "name": "@leofcoin/generate-account",
   "version": "1.1.0",
   "description": "",
-  "main": "src/generate-account.js",
   "type": "module",
-  "files": [
-    "src/generate-account.js"
-  ],
+  "exports": {
+    ".": "./src/generate-account.js"
+  },
   "scripts": {
     "set-flags": "set NODE_OPTIONS=--openssl-legacy-provider",
     "test": "npm run set-flags && node test.js"
