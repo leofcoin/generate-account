@@ -4,10 +4,11 @@
   "description": "",
   "type": "module",
   "exports": {
-    ".": "./src/generate-account.js"
+    ".": "./src/index.js"
   },
+  "types": "./index.d.ts",
   "scripts": {
-    "set-flags": "set NODE_OPTIONS=--openssl-legacy-provider",
+    "build": "rollup -c",
     "test": "npm run set-flags && node test.js"
   },
   "keywords": [],
@@ -15,7 +16,12 @@
   "license": "MIT",
   "dependencies": {
     "@leofcoin/mnemonic": "^1.0.2",
-    "@leofcoin/multi-wallet": "^2.1.10",
+    "@leofcoin/multi-wallet": "^3.0.0",
     "@leofcoin/utils": "^1.1.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^10.0.1",
+    "rollup": "^3.9.0",
+    "tslib": "^2.4.1"
   }
 }
