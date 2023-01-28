@@ -4,15 +4,16 @@ import MultiWallet from '@leofcoin/multi-wallet';
  * @params {String} network
  * @return {object} { identity, accounts, config }
  */
-var index = async (network) => {
+var index = async (password, network) => {
+    if (!password)
+        throw new Error('wallets need to be password protected.');
     let wallet = new MultiWallet(network);
     /**
      * @type {string}
      */
-    const mnemonic = await wallet.generate();
+    const mnemonic = await wallet.generate(password);
     wallet = new MultiWallet(network);
-    await wallet.recover(mnemonic, network);
-    console.log(await wallet.address);
+    await wallet.recover(mnemonic, password, network);
     /**
      * @type {object}
      */
@@ -26,8 +27,6 @@ var index = async (network) => {
             walletId: await external.id
         },
         accounts: [['main account', externalAddress, internalAddress]]
-        // config: {
-        //  }
     };
 };
 

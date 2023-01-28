@@ -1,12 +1,13 @@
+declare type generated = {
+    identity: {
+        mnemonic: string;
+        walletId: string;
+    };
+    accounts: [[name: string, externalAddress: string, internalAddress: string]];
+};
 /**
  * @params {String} network
  * @return {object} { identity, accounts, config }
  */
-declare const _default: (network: network) => Promise<{
-    identity: {
-        mnemonic: any;
-        walletId: any;
-    };
-    accounts: any[][];
-}>;
+declare const _default: (password: String, network: network) => Promise<generated>;
 export default _default;
