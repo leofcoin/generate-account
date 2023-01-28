@@ -5,11 +5,11 @@ import base58 from '@vandeurenglenn/base58'
 
 declare type generated = {
   identity: {
-    mnemonic: string
-    multiWIF: string
-    walletId: string
+    mnemonic: base58String
+    multiWIF: base58String
+    walletId: base58String
   },
-  accounts: [[name: string, externalAddress: string, internalAddress: string]]
+  accounts: [[name: string, externalAddress: base58String, internalAddress: base58String]]
 }
 
 const passwordToKey = (password: Uint8Array) => 
@@ -60,7 +60,7 @@ const encrypt = async (password: string, data: string, version = new TextEncoder
  * @params {String} network
  * @return {object} { identity, accounts, config }
  */
-export default async (password: string, network:  network): Promise<generated> => {
+export default async (password: string, network:  MultiWallet.network): Promise<generated> => {
     if (!password) throw new Error('wallets need to be password protected.')
     let wallet = new MultiWallet(network);
     /**
@@ -70,7 +70,7 @@ export default async (password: string, network:  network): Promise<generated> =
     wallet = new MultiWallet(network)
     await wallet.recover(mnemonic, password, network)
     mnemonic = new Uint8Array(await encrypt(password, mnemonic))
-    const multiWIF = new Uint8Array(await encrypt(password, await wallet.toMultiWif()))
+    const multiWIF = new Uint8Array(await encrypt(password, await wallet.multiWIF))
     /**
      * @type {object}
      */

@@ -1,14 +1,14 @@
 declare type generated = {
     identity: {
-        mnemonic: string;
-        multiWIF: string;
-        walletId: string;
+        mnemonic: base58String;
+        multiWIF: base58String;
+        walletId: base58String;
     };
-    accounts: [[name: string, externalAddress: string, internalAddress: string]];
+    accounts: [[name: string, externalAddress: base58String, internalAddress: base58String]];
 };
 /**
  * @params {String} network
  * @return {object} { identity, accounts, config }
  */
-declare const _default: (password: string, network: network) => Promise<generated>;
+declare const _default: (password: string, network: MultiWallet.network) => Promise<generated>;
 export default _default;

@@ -39,7 +39,7 @@ var index = async (password, network) => {
     wallet = new MultiWallet(network);
     await wallet.recover(mnemonic, password, network);
     mnemonic = new Uint8Array(await encrypt(password, mnemonic));
-    const multiWIF = new Uint8Array(await encrypt(password, await wallet.toMultiWif()));
+    const multiWIF = new Uint8Array(await encrypt(password, await wallet.multiWIF));
     /**
      * @type {object}
      */
