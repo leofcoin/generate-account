@@ -15,13 +15,15 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@leofcoin/crypto": "^0.2.3",
     "@leofcoin/mnemonic": "^1.0.2",
     "@leofcoin/multi-wallet": "^3.0.0",
-    "@leofcoin/utils": "^1.1.4"
+    "@leofcoin/utils": "^1.1.4",
+    "@vandeurenglenn/typed-array-smart-concat": "^1.0.4"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^10.0.1",
     "rollup": "^3.9.0",
-    "tslib": "^2.4.1"
+    "tslib": "^2.5.0"
   }
 }
