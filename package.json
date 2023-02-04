@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@leofcoin/crypto": "^0.2.3",
+    "@leofcoin/identity-utils": "^1.0.2",
     "@leofcoin/mnemonic": "^1.0.2",
     "@leofcoin/multi-wallet": "^3.0.0",
     "@leofcoin/utils": "^1.1.4",

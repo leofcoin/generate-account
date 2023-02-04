@@ -1,29 +1,7 @@
 import MultiWallet from '@leofcoin/multi-wallet';
-import { randombytes } from '@leofcoin/crypto';
-import smartConcat from '@vandeurenglenn/typed-array-smart-concat';
 import base58 from '@vandeurenglenn/base58';
+import { encrypt } from '@leofcoin/identity-utils';
 
-const passwordToKey = (password) => globalThis.crypto.subtle.importKey('raw', password, 'PBKDF2', false, ['deriveKey']);
-const deriveKey = (key, salt, iterations = 250000, hashAlgorithm = 'SHA-512') => globalThis.crypto.subtle.deriveKey({
-    name: 'PBKDF2',
-    salt,
-    iterations,
-    hash: hashAlgorithm
-}, key, {
-    name: 'AES-GCM',
-    length: 256
-}, false, ['encrypt', 'decrypt']);
-const encrypt = async (password, data, version = new TextEncoder().encode('1')) => {
-    const passwordKey = await passwordToKey(new TextEncoder().encode(password));
-    const salt = randombytes(16);
-    const iv = randombytes(16);
-    const key = await deriveKey(passwordKey, salt);
-    const encrypted = await globalThis.crypto.subtle.encrypt({
-        name: 'AES-GCM',
-        iv
-    }, key, new TextEncoder().encode(data));
-    return smartConcat([version, salt, iv, new Uint8Array(encrypted)]);
-};
 /**
  * @params {String} network
  * @return {object} { identity, accounts, config }
