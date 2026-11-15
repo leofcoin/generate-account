@@ -1,9 +1,46 @@
-import generate from './index.js'
-import Multi from '@leofcoin/multi-wallet'
-const generated = await generate('hello world','leofcoin:olivia')
-let multi = new Multi('leofcoin:olivia')
-await multi.recover(generated.identity.mnemonic, undefined, 'leofcoin:olivia')
-multi = new Multi('leofcoin:olivia')
-await multi.recover(generated.identity.mnemonic, 'hello world', 'leofcoin:olivia')
-console.log(await (await multi.account(0).external(0)).address)
-console.log(generated);
+import assert from "node:assert/strict";
+import test from "node:test";
+import MultiWallet from "@leofcoin/multi-wallet";
+import base58 from "@vandeurenglenn/base58";
+import { decrypt } from "@leofcoin/identity-utils";
+import generate from "./index.js";
+
+const network = "leofcoin:olivia";
+const password = "test wallet password";
+
+test("requires a password", async () => {
+  await assert.rejects(generate("", network), /wallets need to be password protected/);
+});
+
+test("generates an encrypted identity that can restore the wallet", async () => {
+  const generated = await generate(password, network);
+  const encryptedMnemonic = base58.decode(generated.identity.mnemonic);
+  const encryptedMultiWIF = base58.decode(generated.identity.multiWIF);
+
+  assert.equal(base58.isBase58(generated.identity.mnemonic), true);
+  assert.equal(base58.isBase58(generated.identity.multiWIF), true);
+  assert.equal(generated.accounts.length, 1);
+  assert.equal(generated.accounts[0][0], "main account");
+
+  const mnemonic = await decrypt(password, encryptedMnemonic);
+  const multiWIF = await decrypt(password, encryptedMultiWIF);
+  const restored = new MultiWallet(network);
+  await restored.recover(mnemonic, password);
+
+  assert.equal(await restored.multiWIF, multiWIF);
+  assert.equal(
+    await (await restored.account(1).external(1)).address,
+    generated.accounts[0][1],
+  );
+  assert.equal(
+    await (await restored.account(1).internal(1)).address,
+    generated.accounts[0][2],
+  );
+  assert.equal(
+    await (await restored.account(1).external(1)).id,
+    generated.identity.walletId,
+  );
+  await assert.rejects(
+    decrypt("incorrect password", encryptedMnemonic),
+  );
+});
